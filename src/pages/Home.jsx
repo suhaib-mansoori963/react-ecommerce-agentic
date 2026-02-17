@@ -1,14 +1,13 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { fetchProducts } from '../api/fakestore'
-import { ErrorState } from '../components/ErrorState'
-import { Loader } from '../components/Loader'
-import { ProductCard } from '../components/ProductCard'
-import type { Product } from '../types/product'
+import { fetchProducts } from '../api/fakestore.js'
+import { ErrorState } from '../components/ErrorState.jsx'
+import { Loader } from '../components/Loader.jsx'
+import { ProductCard } from '../components/ProductCard.jsx'
 
 export default function Home() {
-  const [products, setProducts] = useState<Product[] | null>(null)
-  const [error, setError] = useState<string | null>(null)
+  const [products, setProducts] = useState(null)
+  const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
 
   const featured = useMemo(() => (products ? products.slice(0, 4) : []), [products])
@@ -20,7 +19,7 @@ export default function Home() {
 
     fetchProducts(controller.signal)
       .then((data) => setProducts(data))
-      .catch((e: unknown) => setError(e instanceof Error ? e.message : 'Failed to load'))
+      .catch((e) => setError(e instanceof Error ? e.message : 'Failed to load'))
       .finally(() => setLoading(false))
 
     return () => controller.abort()

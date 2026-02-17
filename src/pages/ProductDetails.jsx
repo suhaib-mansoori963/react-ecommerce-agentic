@@ -1,19 +1,18 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { fetchProductById } from '../api/fakestore'
-import { ErrorState } from '../components/ErrorState'
-import { Loader } from '../components/Loader'
-import { useCart } from '../context/CartContext'
-import type { Product } from '../types/product'
-import { formatCurrency } from '../utils/format'
+import { fetchProductById } from '../api/fakestore.js'
+import { ErrorState } from '../components/ErrorState.jsx'
+import { Loader } from '../components/Loader.jsx'
+import { useCart } from '../context/CartContext.jsx'
+import { formatCurrency } from '../utils/format.js'
 
 export default function ProductDetails() {
   const params = useParams()
   const id = useMemo(() => Number(params.id), [params.id])
   const { addToCart } = useCart()
 
-  const [product, setProduct] = useState<Product | null>(null)
-  const [error, setError] = useState<string | null>(null)
+  const [product, setProduct] = useState(null)
+  const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
 
   const load = () => {
@@ -28,7 +27,7 @@ export default function ProductDetails() {
 
     fetchProductById(id, controller.signal)
       .then((data) => setProduct(data))
-      .catch((e: unknown) => setError(e instanceof Error ? e.message : 'Failed to load'))
+      .catch((e) => setError(e instanceof Error ? e.message : 'Failed to load'))
       .finally(() => setLoading(false))
 
     return () => controller.abort()
@@ -72,8 +71,9 @@ export default function ProductDetails() {
                 {formatCurrency(product.price)}
               </div>
               <div className="text-sm text-slate-600">
-                Rating: <span className="font-semibold">{product.rating?.rate ?? 0}</span>{' '}
-                ({product.rating?.count ?? 0})
+                Rating:{' '}
+                <span className="font-semibold">{product.rating?.rate ?? 0}</span> (
+                {product.rating?.count ?? 0})
               </div>
             </div>
 

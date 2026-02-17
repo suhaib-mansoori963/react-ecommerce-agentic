@@ -1,9 +1,8 @@
 import { Link } from 'react-router-dom'
-import type { Product } from '../types/product'
-import { formatCurrency } from '../utils/format'
-import { useCart } from '../context/CartContext'
+import { formatCurrency } from '../utils/format.js'
+import { useCart } from '../context/CartContext.jsx'
 
-export function ProductCard({ product }: { product: Product }) {
+export function ProductCard({ product }) {
   const { addToCart } = useCart()
 
   return (

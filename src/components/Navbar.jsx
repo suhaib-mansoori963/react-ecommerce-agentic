@@ -1,7 +1,7 @@
 import { Link, NavLink } from 'react-router-dom'
-import { useCart } from '../context/CartContext'
+import { useCart } from '../context/CartContext.jsx'
 
-function NavItem({ to, label }: { to: string; label: string }) {
+function NavItem({ to, label }) {
   return (
     <NavLink
       to={to}
@@ -24,9 +24,9 @@ export function Navbar() {
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
         <Link to="/" className="flex items-center gap-2 font-extrabold text-slate-900">
           <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-slate-900 text-white">
-            E
+            A
           </span>
-          <span className="tracking-tight">E-commerce Shop</span>
+          <span className="tracking-tight">Agentic Shop</span>
         </Link>
 
         <nav className="flex items-center gap-1">

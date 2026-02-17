@@ -1,21 +1,13 @@
-import { useMemo, useState, type FormEvent } from 'react'
+import { useMemo, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { useCart } from '../context/CartContext'
-import { formatCurrency } from '../utils/format'
-
-type FormState = {
-  fullName: string
-  email: string
-  address: string
-  city: string
-  zip: string
-}
+import { useCart } from '../context/CartContext.jsx'
+import { formatCurrency } from '../utils/format.js'
 
 export default function Checkout() {
   const navigate = useNavigate()
   const { items, subtotal, clearCart } = useCart()
   const [submitting, setSubmitting] = useState(false)
-  const [form, setForm] = useState<FormState>({
+  const [form, setForm] = useState({
     fullName: '',
     email: '',
     address: '',
@@ -34,7 +26,7 @@ export default function Checkout() {
     )
   }, [items.length, form])
 
-  const onSubmit = async (e: FormEvent) => {
+  const onSubmit = async (e) => {
     e.preventDefault()
     if (!canSubmit) return
     setSubmitting(true)

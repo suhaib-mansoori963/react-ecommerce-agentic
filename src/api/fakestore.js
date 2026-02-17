@@ -1,12 +1,11 @@
 import axios from 'axios'
-import type { Product } from '../types/product'
 
 const api = axios.create({
   baseURL: 'https://fakestoreapi.com',
   timeout: 15000,
 })
 
-function toErrorMessage(err: unknown): string {
+function toErrorMessage(err) {
   if (axios.isAxiosError(err)) {
     return (
       err.response?.data?.message ||
@@ -19,21 +18,18 @@ function toErrorMessage(err: unknown): string {
   return 'Something went wrong'
 }
 
-export async function fetchProducts(signal?: AbortSignal): Promise<Product[]> {
+export async function fetchProducts(signal) {
   try {
-    const res = await api.get<Product[]>('/products', { signal })
+    const res = await api.get('/products', { signal })
     return res.data
   } catch (err) {
     throw new Error(toErrorMessage(err))
   }
 }
 
-export async function fetchProductById(
-  id: number,
-  signal?: AbortSignal,
-): Promise<Product> {
+export async function fetchProductById(id, signal) {
   try {
-    const res = await api.get<Product>(`/products/${id}`, { signal })
+    const res = await api.get(`/products/${id}`, { signal })
     return res.data
   } catch (err) {
     throw new Error(toErrorMessage(err))
